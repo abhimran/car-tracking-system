@@ -1,0 +1,15 @@
+.signUp {
+  min-height: 100vh;
+
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .signUp-content {
+    width: 400px;
+    background: #f8f8f8;
+    border: 2px solid #dddada;
+    padding: 20px;
+  }
+}

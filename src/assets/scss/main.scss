@@ -26,5 +26,28 @@ select {
   font-family: 'Montserrat', sans-serif;
 }
 
+a {
+  text-decoration: none !important;
+}
+
+ol,
+ul {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
 @import '/node_modules/bootstrap/scss/bootstrap.scss';
 @import './homepage';
+@import './sign-up';
+@import './sidebar';
+@import './content-wrapper';
