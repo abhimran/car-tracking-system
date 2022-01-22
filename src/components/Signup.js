@@ -7,70 +7,70 @@ const Signup = () => {
         <div className='signUp-content'>
           <h3 className='text-center mb-4'>Create account</h3>
           <form>
-            <div class='mb-3'>
-              <label for='exampleInputPassword1' class='form-label me-2'>
+            <div className='mb-3'>
+              <label for='exampleInputPassword1' className='form-label me-2'>
                 Role:
               </label>
-              <div class='form-check form-check-inline'>
+              <div className='form-check form-check-inline'>
                 <input
-                  class='form-check-input'
+                  className='form-check-input'
                   type='radio'
                   name='inlineRadioOptions'
                   id='inlineRadio1'
                   value='option1'
                 />
-                <label class='form-check-label' for='inlineRadio1'>
+                <label className='form-check-label' for='inlineRadio1'>
                   Manager
                 </label>
               </div>
-              <div class='form-check form-check-inline'>
+              <div className='form-check form-check-inline'>
                 <input
-                  class='form-check-input'
+                  className='form-check-input'
                   type='radio'
                   name='inlineRadioOptions'
                   id='inlineRadio2'
                   value='option2'
                 />
-                <label class='form-check-label' for='inlineRadio2'>
+                <label className='form-check-label' for='inlineRadio2'>
                   Operator
                 </label>
               </div>
             </div>
-            <div class='mb-3'>
-              <label for='exampleInputPassword1' class='form-label'>
+            <div className='mb-3'>
+              <label for='exampleInputPassword1' className='form-label'>
                 User name
               </label>
               <input
                 type='text'
-                class='form-control'
+                className='form-control'
                 placeholder='Enter your name'
               />
             </div>
 
-            <div class='mb-3'>
-              <label for='exampleInputEmail1' class='form-label'>
+            <div className='mb-3'>
+              <label for='exampleInputEmail1' className='form-label'>
                 Email address
               </label>
               <input
                 type='email'
-                class='form-control'
+                className='form-control'
                 placeholder='Enter your email'
               />
             </div>
-            <div class='mb-3'>
-              <label for='exampleInputPassword1' class='form-label'>
+            <div className='mb-3'>
+              <label for='exampleInputPassword1' className='form-label'>
                 Password
               </label>
               <input
                 type='password'
-                class='form-control'
+                className='form-control'
                 placeholder='Enter your password'
                 id='exampleInputPassword1'
               />
             </div>
 
-            <div class='d-grid gap-2'>
-              <button class='btn btn-success' type='button'>
+            <div className='d-grid gap-2'>
+              <button className='btn btn-success' type='button'>
                 Sign up
               </button>
             </div>
