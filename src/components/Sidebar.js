@@ -1,9 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, Outlet, useLocation } from 'react-router-dom';
 import { ManagerSidebarData } from '../data/SidebarData';
 
+function getCartFromLocalStorage() {
+  return localStorage.getItem('userData')
+    ? JSON.parse(localStorage.getItem('userData'))
+    : [];
+}
+
 const Sidebar = () => {
   const location = useLocation().pathname;
+  // eslint-disable-next-line no-unused-vars
+  const [user, setUser] = useState(getCartFromLocalStorage());
 
   return (
     <div>
@@ -13,7 +21,7 @@ const Sidebar = () => {
             <img src='/images/car.png' alt='car-icon' />
           </div>
           <div>
-            <h5>Abdullah Imran</h5>
+            <h5>{user[0].username || ''}</h5>
             <Link to='#'>
               <span className='text-danger'>Log out</span>
             </Link>

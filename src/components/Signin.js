@@ -1,55 +1,55 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Signin = () => {
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+  });
+
+  const { email, password } = formData;
+  const navigate = useNavigate();
+
+  const onChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    const userData = JSON.parse(localStorage.getItem('userData'));
+
+    const user = userData.some(
+      (item) => item.email === email && item.password === password
+    );
+    if (user) {
+      navigate('/dashboard');
+    } else {
+      alert('User does nt match');
+    }
+  };
+
   return (
     <div className='container'>
       <div className='signUp'>
         <div className='signUp-content'>
           <h3 className='text-center mb-4'>Login</h3>
-          <form>
+          <form onSubmit={(e) => onSubmit(e)}>
             <div className='mb-3'>
-              <label for='exampleInputPassword1' className='form-label me-2'>
-                Login as a:
-              </label>
-              <div className='form-check form-check-inline'>
-                <input
-                  className='form-check-input'
-                  type='radio'
-                  name='inlineRadioOptions'
-                  id='inlineRadio1'
-                  value='option1'
-                />
-                <label className='form-check-label' for='inlineRadio1'>
-                  Manager
-                </label>
-              </div>
-              <div className='form-check form-check-inline'>
-                <input
-                  className='form-check-input'
-                  type='radio'
-                  name='inlineRadioOptions'
-                  id='inlineRadio2'
-                  value='option2'
-                />
-                <label className='form-check-label' for='inlineRadio2'>
-                  Operator
-                </label>
-              </div>
-            </div>
-
-            <div className='mb-3'>
-              <label for='exampleInputEmail1' className='form-label'>
+              <label htmlFor='exampleInputEmail1' className='form-label'>
                 Email address
               </label>
               <input
                 type='email'
                 className='form-control'
                 placeholder='Enter your email'
+                name='email'
+                value={email}
+                onChange={(e) => onChange(e)}
+                required
               />
             </div>
             <div className='mb-3'>
-              <label for='exampleInputPassword1' className='form-label'>
+              <label htmlFor='exampleInputPassword1' className='form-label'>
                 Password
               </label>
               <input
@@ -57,11 +57,16 @@ const Signin = () => {
                 className='form-control'
                 placeholder='Enter your password'
                 id='exampleInputPassword1'
+                name='password'
+                value={password}
+                onChange={(e) => onChange(e)}
+                minLength='6'
+                required
               />
             </div>
 
             <div className='d-grid gap-2'>
-              <button className='btn btn-success' type='button'>
+              <button className='btn btn-success' type='submit'>
                 Sign in
               </button>
             </div>

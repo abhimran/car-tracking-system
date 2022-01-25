@@ -1,25 +1,28 @@
-import React, { useState, useRef } from 'react';
+import React, { useRef, useContext } from 'react';
 import ContentWrapper from '../components/ContentWrapper';
 import * as d3 from 'd3';
-import { CityData } from '../data/CityData';
+import { CityContext } from '../context/City';
+import AssignCarAndOPeratorModal from '../modals/AssignCarAndOPeratorModal';
 
 const City = () => {
-  const [parsed, setParsed] = useState({});
+  const { cityData, setCityData } = useContext(CityContext);
+  const randomId = Math.floor(Math.random() * 100) + 21;
+
   const uploadFile = useRef(null);
   const handleFiles = () => {
     // Load csv File
     (async () => {
       const text = await uploadFile.current.files[0].text();
       const data = await d3.csvParse(text);
-      setParsed(data);
+      const newItem = { ...data[0], id: randomId };
+      setCityData([...cityData, newItem]);
     })();
   };
 
-  console.log(parsed);
   return (
     <ContentWrapper>
       <div>
-        <h5>Import CSV file: </h5>
+        <h6 className='mb-2'>Import CSV file: </h6>
         <div>
           <input
             ref={uploadFile}
@@ -28,28 +31,66 @@ const City = () => {
             id='input'
           />
         </div>
-        <h5>File Data:</h5>{' '}
+      </div>
+
+      <div className='py-4'>
+        <h6>
+          Download Demo csv file:{' '}
+          <span className='text-warning'>
+            (.csv file must have name, lat and long field)
+          </span>
+        </h6>
+
+        <div className='mt-2'>
+          <a
+            rel='noreferrer'
+            target='_blank'
+            href='https://drive.google.com/file/d/1Pyto1rWo3Fs4k5OACq31JjjJd-icitZP/view?usp=sharing'
+          >
+            <button className='btn btn-secondary me-2'>Nawabganj</button>
+          </a>
+
+          <a
+            rel='noreferrer'
+            target='_blank'
+            href='https://drive.google.com/file/d/14Dra4PedBgDQ7hU0tD-evLCKIZRtDVgd/view?usp=sharing'
+          >
+            <button className='btn btn-secondary me-2'>Naogaon</button>
+          </a>
+
+          <a
+            rel='noreferrer'
+            target='_blank'
+            href='https://drive.google.com/file/d/1ZJ1Vpf8haT3DACTZ4tRii_bQFDbApxkh/view?usp=sharing'
+          >
+            <button className='btn btn-secondary me-2'>Natore</button>
+          </a>
+        </div>
       </div>
 
       <div className='citis'>
         <div className='mb-3'>
           <h4 className='mb-2'>
-            Total citis: {CityData.length ? CityData.length : 0}{' '}
+            Total citis: {cityData.length ? cityData.length : 0}{' '}
           </h4>
         </div>
         <div className='row gx-3 gy-3'>
-          {CityData.map((city) => (
+          {cityData.map((city) => (
             <div className='col-md-4' key={city.id}>
               <div className='single-city'>
                 <div className='city-detail p-3'>
                   <h5 className='mb-2'>City name: {city.name}</h5>
                   <p className='text-secondary mb-1'>Latitude: {city.lat}</p>
                   <p className='text-secondary mb-1'>Longitude: {city.long}</p>
-                  <p className='text-secondary mb-1'>Car: Not assigned yet</p>
                   <p className='text-secondary mb-1'>
-                    Operator: Not assigned yet
+                    Car: {city.carModel || 'Not assigned yet'}
                   </p>
-                  <p className='text-secondary mb-1'>Operator code:</p>
+                  <p className='text-secondary mb-1'>
+                    Operator: {city.operatorName || 'Not assigned yet'}
+                  </p>
+                  <p className='text-secondary mb-1'>
+                    Operator code: {city.code || ''}
+                  </p>
                 </div>
 
                 <div className='city-actions p-3'>
@@ -61,31 +102,23 @@ const City = () => {
                   >
                     Update
                   </button>
-                  <button
-                    type='button'
-                    className='btn btn-danger me-2 mb-2'
-                    // onClick={() => handleDelete(car)}
-                  >
+                  <button type='button' className='btn btn-danger me-2 mb-2'>
                     Delete
                   </button>
 
                   <button
                     type='button'
                     className='btn btn-success me-2 mb-2'
-                    // onClick={() => handleDelete(car)}
+                    data-bs-toggle='modal'
+                    data-bs-target={`#assign_car_and_operator_${city.id}`}
                   >
-                    Assign car
-                  </button>
-
-                  <button
-                    type='button'
-                    className='btn btn-secondary me-2 mb-2'
-                    // onClick={() => handleDelete(car)}
-                  >
-                    Assign operator
+                    Assign car and Operator
                   </button>
                 </div>
-                {/* <UpdateCarModal item={car} id={`update_car_${car.id}`} /> */}
+                <AssignCarAndOPeratorModal
+                  item={city}
+                  id={`assign_car_and_operator_${city.id}`}
+                />
               </div>
             </div>
           ))}
