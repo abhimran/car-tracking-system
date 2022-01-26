@@ -3,9 +3,15 @@ import ContentWrapper from '../components/ContentWrapper';
 import * as d3 from 'd3';
 import { CityContext } from '../context/City';
 import AssignCarAndOPeratorModal from '../modals/AssignCarAndOPeratorModal';
+import UpdateCityModal from '../modals/UpdateCityModal';
 
 const City = () => {
   const { cityData, setCityData } = useContext(CityContext);
+  const handleDelete = (cityitem) => {
+    const deleteItem = cityData.filter((item) => item.id !== cityitem.id);
+    setCityData(deleteItem);
+  };
+
   const randomId = Math.floor(Math.random() * 100) + 21;
 
   const uploadFile = useRef(null);
@@ -102,7 +108,11 @@ const City = () => {
                   >
                     Update
                   </button>
-                  <button type='button' className='btn btn-danger me-2 mb-2'>
+                  <button
+                    type='button'
+                    className='btn btn-danger me-2 mb-2'
+                    onClick={() => handleDelete(city)}
+                  >
                     Delete
                   </button>
 
@@ -119,6 +129,8 @@ const City = () => {
                   item={city}
                   id={`assign_car_and_operator_${city.id}`}
                 />
+
+                <UpdateCityModal item={city} id={`update_city_${city.id}`} />
               </div>
             </div>
           ))}

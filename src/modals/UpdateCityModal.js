@@ -12,10 +12,10 @@ const UpdateCityModal = ({ id, item }) => {
   } = useForm();
 
   const onSubmit = (data) => {
-    const updatedData = carData.map((x) =>
+    const updatedData = cityData.map((x) =>
       x.id === item.id ? { ...x, ...data } : x
     );
-    setCarData(updatedData);
+    setCityData(updatedData);
   };
   return (
     <div className='modal fade' id={id}>
@@ -23,7 +23,7 @@ const UpdateCityModal = ({ id, item }) => {
         <div className='modal-content'>
           <div className='modal-header'>
             <h5 className='modal-title' id='exampleModalLabel'>
-              Update car info
+              Update city info
             </h5>
             <button
               type='button'
@@ -36,51 +36,50 @@ const UpdateCityModal = ({ id, item }) => {
             <form onSubmit={handleSubmit(onSubmit)}>
               <div className='mb-3'>
                 <label htmlFor='addCarModel' className='form-label'>
-                  Model
+                  City name
                 </label>
                 <input
-                  id='addCarModel'
                   type='text'
                   className='form-control'
-                  placeholder='Enter car model'
-                  name='model'
-                  defaultValue={item.model}
-                  {...register('model', { required: true })}
+                  placeholder='Enter city'
+                  name='name'
+                  defaultValue={item.name}
+                  {...register('name', { required: true })}
                 />
-                {errors.model && (
+                {errors.name && (
                   <p className='text-danger mt-1'>This field is required.</p>
                 )}
               </div>
               <div className='mb-3'>
                 <label htmlFor='addCarRegNo' className='form-label'>
-                  Reg No
+                  Latitude
                 </label>
                 <input
                   type='text'
                   className='form-control'
-                  placeholder='Enter car reg no'
-                  id='addCarRegNo'
-                  name='regNo'
-                  defaultValue={item.regNo}
-                  {...register('regNo', { required: true })}
+                  placeholder='Enter Latitude'
+                  name='lat'
+                  defaultValue={item.lat}
+                  {...register('lat', { required: true })}
                 />
-                {errors.regNo && (
+                {errors.lat && (
                   <p className='text-danger mt-1'>This field is required.</p>
                 )}
               </div>
 
               <div className='mb-3'>
-                <label className='form-label'>Select a car</label>
-                <select
-                  className='form-select'
-                  {...register('image', { required: true })}
-                >
-                  <option value={item.image}>{item.model}</option>
-                  <option value='/images/car-4.jpg'>Audi</option>
-                  <option value='/images/car-3.jpg'>Lambargini</option>
-                  <option value='/images/car-2.jpg'>Toyota</option>
-                </select>
-                {errors.image && (
+                <label htmlFor='addCarRegNo' className='form-label'>
+                  Longitude
+                </label>
+                <input
+                  type='text'
+                  className='form-control'
+                  placeholder='Enter Longitude'
+                  name='long'
+                  defaultValue={item.long}
+                  {...register('long', { required: true })}
+                />
+                {errors.long && (
                   <p className='text-danger mt-1'>This field is required.</p>
                 )}
               </div>
